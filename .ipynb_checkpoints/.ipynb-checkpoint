@@ -1,0 +1,271 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Questionnaire"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__1. What is a \"feature\"?__\n",
+    "\n",
+    "A data transformation that makes it easier to model.\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__2. Write out the convolutional kernel matrix for a top edge detector.__"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "top_edge = tensor([[1,1,1],\n",
+    "                   [ 0, 0, 0],\n",
+    "                   [ -1, -1, -1]]).float()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__3. Write out the mathematical operation applied by a 3×3 kernel to a single pixel in an image.__"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "TODO: I'm pretty sure this is wrong. Redo this.\n",
+    "\n",
+    "I thought the 3x3 kernel would be applied to a matrix of pixels in the image, rather than one single pixel?\n",
+    "\n",
+    "Suppose a1...a9 are a matrix of pixels in the image.\n",
+    "\n",
+    "$\\begin{matrix} 1 & 1 & 1 \\\\ 0 & 0 & 0 \\\\ -1 & -1 & -1 \\end{matrix}$ $\\begin{matrix} a1 & a2 & a3 \\\\ a4 & a5 & a6 \\\\ a7 & a8 & a9 \\end{matrix}$  = \n",
+    "\n",
+    "Answer should be: $a1+a2+a3-a7-a8-a9$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__4. What is the value of a convolutional kernel apply to a 3×3 matrix of zeros?__\n",
+    "\n",
+    "The bias vector"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__5. What is \"padding\"?__\n",
+    "\n",
+    "Padding allows us to apply a kernel to the corners of a image matrix. It 'pads' the image with extraneous information."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__6. What is \"stride\"?__\n",
+    "\n",
+    "Stride refers to how many pixels we move over after each kernel application. Stride-2 means we move over 2 pixels after a kernel application."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__7. Create a nested list comprehension to complete any task that you choose.__"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[[[(0, 0), (1, 0), (2, 0), (3, 0)],\n",
+       "  [(0, 1), (1, 1), (2, 1), (3, 1)],\n",
+       "  [(0, 2), (1, 2), (2, 2), (3, 2)]],\n",
+       " [[(0, 0), (1, 0), (2, 0), (3, 0)],\n",
+       "  [(0, 1), (1, 1), (2, 1), (3, 1)],\n",
+       "  [(0, 2), (1, 2), (2, 2), (3, 2)]]]"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "[[[(i,j) for i in range(4)] for j in range(3)] for _ in range(2)]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__8. What are the shapes of the `input` and `weight` parameters to PyTorch's 2D convolution?__\n",
+    "\n",
+    "input shape: (minibatch, in_channels, iH, iW)\n",
+    "weight shape: (out_channels, in_channels, kH, kW)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__9. What is a \"channel\"?__\n",
+    "\n",
+    "A single basic color in an image. For RGB images there are three channels."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__10. What is the relationship between a convolution and a matrix multiplication?__\n",
+    "\n",
+    "They are the same thing"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__11. What is a \"convolutional neural network\"?__\n",
+    "\n",
+    "A series of matrix multiplications"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__12. What is the benefit of refactoring parts of your neural network definition?__\n",
+    "\n",
+    "Reduces the likelihood of getting inconsistent shapes, etc in architectures\n",
+    "\n",
+    "Makes things clearer to the reader"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__13. What is `Flatten`? Where does it need to be included in the MNIST CNN? Why?__\n",
+    "\n",
+    "It's the equivalent of the squeeze function. But you can call `Flatten` as a module in `nn.Sequential`.\n",
+    "\n",
+    "It's included at the end of the MNIST CNN to convert a rank 4 tensor into a rank 2 tensor.\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__14. What does \"NCHW\" mean?__\n",
+    "\n",
+    "N,C,H,W = batch,channel,height,width\n",
+    "\n",
+    "For 64x1x28x28:\n",
+    "\n",
+    "batch = 64\n",
+    "\n",
+    "channel = 1\n",
+    "\n",
+    "height = 28\n",
+    "\n",
+    "width = 28\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__15. Why does the third layer of the MNIST CNN have `7*7*(1168-16)` multiplications?__\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "\n",
+    "\n",
+    "1. What is a \"receptive field\"?\n",
+    "1. What is the size of the receptive field of an activation after two stride 2 convolutions? Why?\n",
+    "1. Run *conv-example.xlsx* yourself and experiment with *trace precedents*.\n",
+    "1. Have a look at Jeremy or Sylvain's list of recent Twitter \"like\"s, and see if you find any interesting resources or ideas there.\n",
+    "1. How is a color image represented as a tensor?\n",
+    "1. How does a convolution work with a color input?\n",
+    "1. What method can we use to see that data in `DataLoaders`?\n",
+    "1. Why do we double the number of filters after each stride-2 conv?\n",
+    "1. Why do we use a larger kernel in the first conv with MNIST (with `simple_cnn`)?\n",
+    "1. What information does `ActivationStats` save for each layer?\n",
+    "1. How can we access a learner's callback after training?\n",
+    "1. What are the three statistics plotted by `plot_layer_stats`? What does the x-axis represent?\n",
+    "1. Why are activations near zero problematic?\n",
+    "1. What are the upsides and downsides of training with a larger batch size?\n",
+    "1. Why should we avoid using a high learning rate at the start of training?\n",
+    "1. What is 1cycle training?\n",
+    "1. What are the benefits of training with a high learning rate?\n",
+    "1. Why do we want to use a low learning rate at the end of training?\n",
+    "1. What is \"cyclical momentum\"?\n",
+    "1. What callback tracks hyperparameter values during training (along with other information)?\n",
+    "1. What does one column of pixels in the `color_dim` plot represent?\n",
+    "1. What does \"bad training\" look like in `color_dim`? Why?\n",
+    "1. What trainable parameters does a batch normalization layer contain?\n",
+    "1. What statistics are used to normalize in batch normalization during training? How about during validation?\n",
+    "1. Why do models with batch normalization layers generalize better?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.4"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
